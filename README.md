@@ -30,15 +30,15 @@ Application Message:
 Client:   
 MQTT を使うプログラムまたはデバイスのこと。
 - Server との Network Connection をオープンする。
-- 他の Client が関心を持つ Application Message を publish する。
-- 受信したい Application Message を要求するために subscribe する。
-- Application Message の要求を削除するために unsubscribe する。
+- 他の Client が関心を持つ Application Message をパブリッシュする。
+- 受信したい Application Message を要求するためにサブスクライブする。
+- Application Message の要求を削除するためにアンサブスクライブする。
 - Server との Network Connection をクローズする。
 
 Server:   
-Application Message を publish する Client と Subscription を作成する Client の仲介者として振る舞うプログラムまたはデバイスのこと。
+Application Message をパブリッシュする Client と Subscription を作成する Client の仲介者として振る舞うプログラムまたはデバイスのこと。
 - Client からのNetwork Connectionを受け入れる。
-- Client によって publish された Application Message を受け入れる
+- Client によってパブリッシュされた Application Message を受け入れる
 - Client からの Subscribe や Unsubscribe を処理する。
 - Client Subscription にマッチする Application Message を転送する。
 - Client からの Network Connection をクローズする。
