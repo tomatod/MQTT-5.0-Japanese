@@ -18,19 +18,27 @@
 ### 1.2 用語
 本仕様における MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", "OPTIONAL" といったキーワードは、非規範的 (non-normative) とマークされている場合を除き、IETF RFC 2119 [[RFC2119]](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#RFC2119)で説明されているように解釈されます。
 
-ネットワークコネクション:   
+Network Connection:   
 MQTT で使用されている、基盤となるトランスポートプロトコルによって提供される構造のこと。
-- クライアントをサーバに接続する
+- Client を Server に接続する
 - 整列され、損失が少ないバイトストリームを、双方向に送信する手段を提供する。
-[セクション 4.2](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#:~:text=Refer%20to-,section%204.2,-Network%20Connection%20for) 非規範的なネットワークコネクションを参照してください。
+[セクション 4.2](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#:~:text=Refer%20to-,section%204.2,-Network%20Connection%20for) 非規範的なNetwork Connectionを参照してください。
 
-アプリケーションメッセージ:   
+Application Message:   
 アプリケーションのために、MQTT プロトコルによってネットワーク間で転送されるデータのこと。Application Message が MQTT によって転送される際、それはペイロードデータ、Quality of Service (QoS)、プロパティのコレクション、およびトピック名を含みます。
 
-クライアント:   
+Client:   
 MQTT を使うプログラムまたはデバイスのこと。
-- サーバとのコネクションをオープンしてる。
-- 他のクライアントが関心を持つアプリケーションメッセージをパブリッシュする。
-- 受信したいアプリケーションメッセージを要求するためにサブスクライブする。
-- アプリケーションメッセージの要求を削除するためにアンサブスクライブする。
-- サーバーとのコネクションをクローズする。
+- Server との Network Connection をオープンする。
+- 他の Client が関心を持つ Application Message を publish する。
+- 受信したい Application Message を要求するために subscribe する。
+- Application Message の要求を削除するために unsubscribe する。
+- Server との Network Connection をクローズする。
+
+Server:   
+Application Message を publish する Client と Subscription を作成する Client の仲介者として振る舞うプログラムまたはデバイスのこと。
+- Client からのNetwork Connectionを受け入れる。
+- Client によって publish された Application Message を受け入れる
+- Client からの Subscribe や Unsubscribe を処理する。
+- Client Subscription にマッチする Application Message を転送する。
+- Client からの Network Connection をクローズする。
