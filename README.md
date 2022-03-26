@@ -372,7 +372,7 @@ Figure 1‑1 Structure of UTF-8 Encoded Strings
   <td width="426" colspan="8" valign="top" style="width:319.2pt;border-top:none;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt">
-  <p class="MsoNormal" align="center" style="text-align:center">MSB の文字数</p>
+  <p class="MsoNormal" align="center" style="text-align:center">String length MSB</p>
   </td>
  </tr>
  <tr>
@@ -383,7 +383,7 @@ Figure 1‑1 Structure of UTF-8 Encoded Strings
   <td width="426" colspan="8" valign="top" style="width:319.2pt;border-top:none;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt">
-  <p class="MsoNormal" align="center" style="text-align:center">LSB の文字数</p>
+  <p class="MsoNormal" align="center" style="text-align:center">String length LSB</p>
   </td>
  </tr>
  <tr>
@@ -394,7 +394,8 @@ Figure 1‑1 Structure of UTF-8 Encoded Strings
   <td width="426" colspan="8" valign="top" style="width:319.2pt;border-top:none;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt">
-  <p class="MsoNormal" align="center" style="text-align:center">UTF-8 エンコード文字データ (長さが 0 より大きい場合) &gt; 0.</p>
+  <p class="MsoNormal" align="center" style="text-align:center">UTF-8 encoded
+  character data, if length &gt; 0.</p>
   </td>
  </tr>
 </tbody></table>
