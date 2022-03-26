@@ -50,7 +50,7 @@ Subscription:
 1 つの Subscription は 1 つの Topic Filter と最大 QoS で構成されます。1 つの Subscription は 1 つの Session とひも付きます。1 つの Session は 1 つ以上の Subscription を含みます。1 つの Session の中のそれぞれの Subscription は異なる Topic Filter を持ちます。
 
 Shared Subscription:   
-1 つの Shared Subscription は 1 つの Topic Filter と最大 QoS で構成されます。1 つの Shared Subscription は、広範囲のメッセージ交換パターンを許可するために、1 つ以上の Session にひも付きます。Shared Subscription にマッチする単一の Application Message はこれらの Session の 1 つと紐づく Client に対してのみ送信されます。1 つの Session は 1 つ以上の Shared Subscription をサブスクライブでき、Shared Subscription と Shared ではない Subscription の療法を含むことができます。
+1 つの Shared Subscription は 1 つの Topic Filter と最大 QoS で構成されます。1 つの Shared Subscription は、広範囲のメッセージ交換パターンを許可するために、1 つ以上の Session にひも付きます。Shared Subscription にマッチする単一の Application Message はこれらの Session の 1 つと紐づく Client に対してのみ送信されます。1 つの Session は 1 つ以上の Shared Subscription をサブスクライブでき、Shared Subscription と Shared ではない Subscription の両方を含むことができます。
 
 Wildcard Subscription:   
 1 つの Wildcard Subscription は 1 つまたは複数のワイルドカード文字を含んだ 1 つの Topic Filter を持つ 1 つの Subscription です。これは、そのサブスクリプションが 1 つ以上の Topic Name にマッチすることを許します。
@@ -303,3 +303,98 @@ http://www.rfc-editor.org/info/rfc1035
 Gulbrandsen, A., Vixie, P., and L. Esibov, "A DNS RR for specifying the location of services (DNS SRV)", RFC 2782, DOI 10.17487/RFC2782, February 2000,
 
 http://www.rfc-editor.org/info/rfc2782
+
+### 1.5 データ表現
+#### 1.5.1 ビット
+1 つのバイト内のビットには、7 から 0 のラベルが付いています。ビット番号 7 は最上位ビットであり、最下位ビットにはビット番号 0 が割り当てられます。
+
+#### 1.5.2 Two Byte Integer
+Two Byte Integer データ値はビッグエンディアン順の 16 bit の符号なし整数です。つまり、上位バイトが下位バイトに先行します。これは 16 ビット文字がネットワーク上において最上位バイト (MSB) が提示されたあとに、最下位バイト (LSB) が続くということを意味します。
+
+#### 1.5.3 Four Byte Integer
+Four Byte Integer データ値はビッグエンディアン順の 32 bit の符号なし整数です。つまり、上位バイトが連続する下位バイトに先行します。これは 32 ビット文字がネットワーク上において最上位バイト (MSB) が提示されたあとに、その次の最上位バイト (MSB) が続き、さらにその次の最上位バイト (MSB) が続き、最後に最下位バイト (LSB) が続くということを意味します。
+
+#### 1.5.4 UTF-8 Encoded String
+後に示される MQTT Control Packet 内のフィールドは　UTF-8 文字列としてエンコードされます。UTF-8 [RFC3629](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#RFC3629) は優れた Unicode [Unicode](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#Unicode) 文字のエンコーディングであり、テキストベースのコミュニケーションをサポートするために ASCII 文字のエンコーディングを最適化します。
+
+これらの各文字列には、UTF-8 エンコード文字自身のバイト数を与える Two Byte Integer 長フィールドがプレフィクスとして付与されています。以下の Figure 1.1 Structure of UTF-8 Encoded String のとおりです。その結果、UTF-8 エンコード文字の最大サイズは 65535 byte　です。
+
+※ うまく訳せなかったので原文:   
+Each of these strings is prefixed with a Two Byte Integer length field that gives the number of bytes in a UTF-8 encoded string itself, as illustrated in Figure 1.1 Structure of UTF-8 Encoded Strings below. Consequently, the maximum size of a UTF-8 Encoded String is 65,535 bytes.
+
+特に明記されていない限り、すべての UTF-8 エンコード文字列は、0 〜 65535 byte の範囲の任意の長さにすることができます。
+
+Figure 1‑1 Structure of UTF-8 Encoded Strings
+<table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:none">
+ <tbody><tr>
+  <td width="213" valign="top" style="width:159.6pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Bit</b></p>
+  </td>
+  <td width="53" valign="top" style="width:39.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>7</b></p>
+  </td>
+  <td width="53" valign="top" style="width:39.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>6</b></p>
+  </td>
+  <td width="53" valign="top" style="width:39.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>5</b></p>
+  </td>
+  <td width="53" valign="top" style="width:39.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>4</b></p>
+  </td>
+  <td width="53" valign="top" style="width:39.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>3</b></p>
+  </td>
+  <td width="53" valign="top" style="width:39.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>2</b></p>
+  </td>
+  <td width="53" valign="top" style="width:39.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>1</b></p>
+  </td>
+  <td width="53" valign="top" style="width:39.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>0</b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="213" valign="top" style="width:159.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">byte 1</p>
+  </td>
+  <td width="426" colspan="8" valign="top" style="width:319.2pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">MSB の文字数</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="213" valign="top" style="width:159.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">byte 2</p>
+  </td>
+  <td width="426" colspan="8" valign="top" style="width:319.2pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">LSB の文字数</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="213" valign="top" style="width:159.6pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">byte 3 ….</p>
+  </td>
+  <td width="426" colspan="8" valign="top" style="width:319.2pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">UTF-8 エンコード文字データ (長さが 0 より大きい場合) &gt; 0.</p>
+  </td>
+ </tr>
+</tbody></table>
