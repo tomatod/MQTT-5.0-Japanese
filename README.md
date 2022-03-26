@@ -399,4 +399,5 @@ Figure 1‑1 Structure of UTF-8 Encoded Strings
   </td>
  </tr>
 </tbody></table>
+
 ※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
