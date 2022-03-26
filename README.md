@@ -19,7 +19,7 @@
 本仕様における MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", "OPTIONAL" といったキーワードは、非規範的 (non-normative) とマークされている場合を除き、IETF RFC 2119 [[RFC2119]](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#RFC2119)で説明されているように解釈されます。
 
 #### Network Connection:
-MQTT で使用されている、基盤となるトランスポートプロトコルによって提供される構造のこと。
+**MQTT で使用されている、基盤となるトランスポートプロトコルによって提供される構造のこと。**
 - Client を Server に接続する
 - 整列され、損失が少ないバイトストリームを、双方向に送信する手段を提供する。
 [セクション 4.2](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#:~:text=Refer%20to-,section%204.2,-Network%20Connection%20for) 非規範的なNetwork Connectionを参照してください。
@@ -28,7 +28,7 @@ MQTT で使用されている、基盤となるトランスポートプロトコ
 アプリケーションのために、MQTT プロトコルによってネットワーク間で転送されるデータのこと。Application Message が MQTT によって転送される際、それはペイロードデータ、Quality of Service (QoS)、プロパティのコレクション、およびトピック名を含みます。
 
 #### Client:
-**MQTT を使うプログラムまたはデバイスのこと。**
+MQTT を使うプログラムまたはデバイスのこと。
 - Server との Network Connection をオープンする。
 - 他の Client が関心を持つ Application Message をパブリッシュする。
 - 受信したい Application Message を要求するためにサブスクライブする。
