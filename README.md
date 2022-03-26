@@ -18,24 +18,24 @@
 ### 1.2 用語
 本仕様における MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", "OPTIONAL" といったキーワードは、非規範的 (non-normative) とマークされている場合を除き、IETF RFC 2119 [[RFC2119]](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#RFC2119)で説明されているように解釈されます。
 
-#### Network Connection:   
+#### Network Connection:
 MQTT で使用されている、基盤となるトランスポートプロトコルによって提供される構造のこと。
 - Client を Server に接続する
 - 整列され、損失が少ないバイトストリームを、双方向に送信する手段を提供する。
 [セクション 4.2](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#:~:text=Refer%20to-,section%204.2,-Network%20Connection%20for) 非規範的なNetwork Connectionを参照してください。
 
-#### Application Message:   
+#### Application Message:
 アプリケーションのために、MQTT プロトコルによってネットワーク間で転送されるデータのこと。Application Message が MQTT によって転送される際、それはペイロードデータ、Quality of Service (QoS)、プロパティのコレクション、およびトピック名を含みます。
 
-#### Client:   
-** MQTT を使うプログラムまたはデバイスのこと。 **
+#### Client:
+**MQTT を使うプログラムまたはデバイスのこと。**
 - Server との Network Connection をオープンする。
 - 他の Client が関心を持つ Application Message をパブリッシュする。
 - 受信したい Application Message を要求するためにサブスクライブする。
 - Application Message の要求を削除するためにアンサブスクライブする。
 - Server との Network Connection をクローズする。
 
-#### Server:   
+#### Server:
 Application Message をパブリッシュする Client と Subscription を作成する Client の仲介者として振る舞うプログラムまたはデバイスのこと。
 - Client からのNetwork Connectionを受け入れる。
 - Client によってパブリッシュされた Application Message を受け入れる
@@ -43,37 +43,37 @@ Application Message をパブリッシュする Client と Subscription を作�
 - Client Subscription にマッチする Application Message を転送する。
 - Client からの Network Connection をクローズする。
 
-#### Session:   
+#### Session:
 1 つの Client と 1 つの Server 間のステートフルな対話のこと。一部の Session は接続の間のみ持続する他、Client と Server 間の複数の連続した Network Connection にまたがることもできます。
 
-#### Subscription:   
+#### Subscription:
 1 つの Subscription は 1 つの Topic Filter と最大 QoS で構成されます。1 つの Subscription は 1 つの Session とひも付きます。1 つの Session は 1 つ以上の Subscription を含みます。1 つの Session の中のそれぞれの Subscription は異なる Topic Filter を持ちます。
 
-#### Shared Subscription:   
+#### Shared Subscription:
 1 つの Shared Subscription は 1 つの Topic Filter と最大 QoS で構成されます。1 つの Shared Subscription は、広範囲のメッセージ交換パターンを許可するために、1 つ以上の Session にひも付きます。Shared Subscription にマッチする単一の Application Message はこれらの Session の 1 つと紐づく Client に対してのみ送信されます。1 つの Session は 1 つ以上の Shared Subscription をサブスクライブでき、Shared Subscription と Shared ではない Subscription の両方を含むことができます。
 
-#### Wildcard Subscription:   
+#### Wildcard Subscription:
 1 つの Wildcard Subscription は 1 つまたは複数のワイルドカード文字を含んだ 1 つの Topic Filter を持つ 1 つの Subscription です。これは、そのサブスクリプションが 1 つ以上の Topic Name にマッチすることを許します。
 
-#### Topic Name:   
+#### Topic Name:
 Server で認識されているサブスクリプションにマッチする Application Message にアタッチされたラベルのこと。
 
-#### Topic Filter:   
+#### Topic Filter:
 1 つまたは複数のトピックに対する関心を示すために、Subscription 内に含まれる表現のこと。
 
-#### MQTT Control Packet:   
+#### MQTT Control Packet:
 Network Connection を通じて送信される情報のパケット。MQTT は異なる 15 種類の MQTT Control Packet を定義し、例えば PUBLISH パケットは Application Message を伝えるのに使用されます。
 
-#### Malformed Packet:   
+#### Malformed Packet:
 この仕様にしたがって解析することができないコントロールパケットのこと。エラーハンドリングの情報についてはセクション 4.13 を参照してください。
 
-#### Protocol Error:   
+#### Protocol Error:
 パケットが解析された後に検出され、プロトコルで許可されていないデータを含んでいるか、Client または Server の状態と矛盾しているエラーのこと。エラーハンドリングについてはセクション 4.13 を参照してください。
 
-#### Will Message:   
+#### Will Message:
 Network Connection が正常にクローズされなかった場合に Network Connection がクローズされた後、Server によってパブリッシュされた Application Message のこと。Will Message についてはセクション 3.1.2.5 を参照してください。
 
-#### Disallowed Unicode code point:   
+#### Disallowed Unicode code point:
 UTF-8 Encoded String において含まれるべきでない、Unicode Control Codes と Unicode Noncharacter のセットのこと。Disallowed Unicode code point についての詳細な情報はセクション 1.5.4 を参照してください。
 
 ### 1.3 引用規格
