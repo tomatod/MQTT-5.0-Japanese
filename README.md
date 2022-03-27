@@ -401,3 +401,13 @@ Figure 1‑1 Structure of UTF-8 Encoded Strings
 </tbody></table>
 
 ※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
+
+1 つの UTF-8 エンコード文字内の文字データは Unicode 仕様 [Unicode](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#Unicode) で定義され、RFC 3629 [RFC3629](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#RFC3629) で再記述された、整形式の UTF-8 でなければなりません (MUST)。特に、文字データは、U+D800 と U+DFFF [MQTT-1.5.4-1] 間のコードポイントのエンコーディングを含んではなりません (MUST NOT)。もし Client か Server が奇形の UTF-8 を含む MQTT Control Packet を受け取った場合、それは Malformed Packet です。エラーハンドリングについてはセクション 4.13 を参照してください。
+
+UTF-8 エンコード文字は null 文字 U+0000 のエンコーディングを含んではなりません (MUST NOT)。[MQTT-1.5.4-2]。もし、レシバー (Client か Server) が U+0000 を含む MQTT Control Packet を受け取った場合には、それは Malformed Packet です。エラーハンドリングについてはセクション 4.13 を参照してください。
+
+データは以下にリストされた Unicode [Unicode] コードポイントのエンコーディングを含むべきではありません (SHOULD NOT)。もしレシーバー (Server または Client) がそれらを含む MQTT Control Packet を受け取った場合、それは Malformed Packet として扱われる可能性がある (MAY)。これらは Disallowed Unicoded コードポイントである。Disallowed Unicode コードポイントのハンドリングについてはセクション 5.4.9 を参照してください。
+
+ - U+0001..U+001F コントロール文字
+ - U+007F..U+009F コントロール文字
+ - コードポイントは Unicode 仕様 [[Unicode]](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#Unicode) 非文字列として定義されている (例えば U+0FFFF)。
