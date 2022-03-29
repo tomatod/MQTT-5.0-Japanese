@@ -861,7 +861,7 @@ Figure 1‑2 UTF-8 Encoded String non-normative example
  </tr>
 </tbody></table>
 
-# 1.5.5 Variable Byte Integer
+#### 1.5.5 Variable Byte Integer
 Variable Byte Integer は 127 までの値にシングルバイトを使うエンコードスキーマを用いてエンコードされます。より大きい値は以下のように扱われる。それぞれのバイトの最下位の 7 bit はデータをエンコードし、最上位ビットは後に続くバイトが存在するかを示すために使用されます。したがって、それぞれのバイトは 128 の値と "continuation bit" をエンコードします。Variable Byte Integer フィールドにおける最大のバイト数は 4 です。エンコードされた値は、その値を表すのに最小のバイト数を使用しなくてはなりません (MUST) [MQTT-1.5.5-1]。これについては、Table 1-1 に示されます。
 
 Table 1-1 Size of Variable Byte Integer
