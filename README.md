@@ -860,3 +860,90 @@ Figure 1‑2 UTF-8 Encoded String non-normative example
   </td>
  </tr>
 </tbody></table>
+
+# 1.5.5 Variable Byte Integer
+Variable Byte Integer は 127 までの値にシングルバイトを使うエンコードスキーマを用いてエンコードされます。より大きい値は以下のように扱われる。それぞれのバイトの最下位の 7 bit はデータをエンコードし、最上位ビットは後に続くバイトが存在するかを示すために使用されます。したがって、それぞれのバイトは 128 の値と "continuation bit" をエンコードします。Variable Byte Integer フィールドにおける最大のバイト数は 4 です。エンコードされた値は、その値を表すのに最小のバイト数を使用しなくてはなりません (MUST) [MQTT-1.5.5-1]。これについては、Table 1-1 に示されます。
+
+Table 1-1 Size of Variable Byte Integer
+<table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:none">
+ <tbody><tr>
+  <td width="61" valign="top" style="width:45.9pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Digits</b></p>
+  </td>
+  <td width="240" valign="top" style="width:2.5in;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>From</b></p>
+  </td>
+  <td width="252" valign="top" style="width:189.0pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>To</b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="61" valign="top" style="width:45.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+  <td width="240" valign="top" style="width:2.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">0 (0x00)</p>
+  </td>
+  <td width="252" valign="top" style="width:189.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">127 (0x7F)</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="61" valign="top" style="width:45.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">2</p>
+  </td>
+  <td width="240" valign="top" style="width:2.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">128 (0x80, 0x01)</p>
+  </td>
+  <td width="252" valign="top" style="width:189.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">16,383 (0xFF, 0x7F)</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="61" valign="top" style="width:45.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">3</p>
+  </td>
+  <td width="240" valign="top" style="width:2.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">16,384 (0x80, 0x80, 0x01)</p>
+  </td>
+  <td width="252" valign="top" style="width:189.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">2,097,151 (0xFF, 0xFF, 0x7F)</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="61" valign="top" style="width:45.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">4</p>
+  </td>
+  <td width="240" valign="top" style="width:2.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">2,097,152 (0x80, 0x80, 0x80,
+  0x01)</p>
+  </td>
+  <td width="252" valign="top" style="width:189.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">268,435,455 (0xFF, 0xFF, 0xFF,
+  0x7F)</p>
+  </td>
+ </tr>
+</tbody></table>
