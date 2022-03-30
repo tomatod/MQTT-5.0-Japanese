@@ -947,3 +947,26 @@ Table 1-1 Size of Variable Byte Integer
   </td>
  </tr>
 </tbody></table>
+
+**非規範的コメント**   
+非負の整数を Variable Byte Integer (X) エンコーディングスキーマへエンコードするためのアルゴリズムは以下のようになります。
+
+do
+
+   encodedByte = X MOD 128
+
+   X = X DIV 128
+
+   // if there are more data to encode, set the top bit of this byte
+
+   if (X > 0)
+
+      encodedByte = encodedByte OR 128
+
+   endif
+
+   'output' encodedByte
+
+while (X > 0)
+
+ここで、MOD はモジュロ演算子 (C では %)、DIV は整数除算 (C では /)、OR はビット計算の or (C では |) です。
