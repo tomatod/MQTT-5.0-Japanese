@@ -964,3 +964,31 @@ while (X > 0)
 ```
 
 ここで、MOD はモジュロ演算子 (C では %)、DIV は整数除算 (C では /)、OR はビット計算の or (C では |) です。
+
+**非規範的コメント**   
+Variable Byte Integer をデコードするアルゴリズムは以下のようになる。
+
+```
+multiplier = 1
+value = 0
+do
+   encodedByte = 'next byte from stream'
+   value += (encodedByte AND 127) * multiplier
+   if (multiplier > 128*128*128)
+      throw Error(Malformed Variable Byte Integer)
+   multiplier *= 128
+while ((encodedByte AND 128) != 0)
+```
+
+このアルゴリズムが終了した時、```value``` は Variable Byte Inter の値を含む。
+
+#### 1.5.6 Binary Data
+Binary Data はデータバイト数を示す Two Byte Integer 長によって表現され、後にバイト数が続きます。したがって、Binary Data は 0 から 65535 byte の範囲に制限されます。
+
+#### 1.5.7 UTF-8 String Pair
+1 つの UTF-8 文字ペアは 2 つの UTF-8 エンコード文字で構成される。このデータタイプは name-value のペアを保持するために使用されます。最初の文字列は name として機能し、2番目の文字列には value が含まれます。
+
+両方の文字は、UTF-8 エンコード文字列の要件に準拠する必要があります (MUST) [MQTT-1.5.7-1]。もしレシーバー (Client または Server) がこれらの要件を満たさない文字ペアを受け取った場合、それは不正な形式のパケットです。エラーハンドリングについては、セクション 4.13 を参照してください。
+
+### 1.6 Security
+MQTT クライアントとサーバの実装は、チャプター 5 で議論するような認証と認可およびセキュアな対話オプションを提供すべきです (SHOULD)。クリティカルなインフラ、個人を特定できる情報、あるいはその他の個人またはセンシティブな情報に関係するアプリケーションは、これらのセキュリティ機能を使用することが推奨されます。
