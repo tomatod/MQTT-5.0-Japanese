@@ -861,6 +861,8 @@ Figure 1‑2 UTF-8 Encoded String non-normative example
  </tr>
 </tbody></table>
 
+※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
+
 #### 1.5.5 Variable Byte Integer
 Variable Byte Integer は 127 までの値にシングルバイトを使うエンコードスキーマを用いてエンコードされます。より大きい値は以下のように扱われる。それぞれのバイトの最下位の 7 bit はデータをエンコードし、最上位ビットは後に続くバイトが存在するかを示すために使用されます。したがって、それぞれのバイトは 128 の値と "continuation bit" をエンコードします。Variable Byte Integer フィールドにおける最大のバイト数は 4 です。エンコードされた値は、その値を表すのに最小のバイト数を使用しなくてはなりません (MUST) [MQTT-1.5.5-1]。これについては、Table 1-1 に示されます。
 
@@ -947,6 +949,8 @@ Table 1-1 Size of Variable Byte Integer
   </td>
  </tr>
 </tbody></table>
+
+※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
 
 **非規範的コメント**   
 非負の整数を Variable Byte Integer (X) エンコーディングスキーマへエンコードするためのアルゴリズムは以下のようになります。
@@ -1039,6 +1043,8 @@ Figure 2‑1 Structure of an MQTT Control Packet
   </td>
  </tr>
 </tbody></table>
+
+※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
 
 #### 2.1.1 Fixed Header
 それぞれの MQTT Control Packet は以下に示すような 1 つの固定ヘッダーを含みます。
@@ -1483,3 +1489,7 @@ Table 2‑1 MQTT Control Packet types
   </td>
  </tr>
 </tbody></table>
+
+※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
+
+2.1.3 Flags
