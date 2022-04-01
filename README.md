@@ -999,7 +999,7 @@ MQTT クライアントとサーバの実装は、チャプター 5 で議論す
 ### 1.8 Change history
 #### 1.8.1 MQTT v3.1.1
 MQTT v3.1.1 は最初の OASIS スタンダードバージョンの MQTT です [MQTTV311]。   
-MQTT v3.1.1 は ISO/IEC 20922:2016 [ISO20922](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#ISO20922) のスタンダードでもあります。
+MQTT v3.1.1 は ISO/IEC 20922:2016 [[ISO20922]](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#ISO20922) のスタンダードでもあります。
 
 #### 1.8.2 MQTT v5.0
 MQTT v5.0 はコア機能を保ちながら、多数の新機能を MQTT に追加しています。主要な機能は、
