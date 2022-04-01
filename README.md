@@ -1010,3 +1010,476 @@ MQTT v5.0 はコア機能を保ちながら、多数の新機能を MQTT に追�
 - パフォーマンス向上とスモールクライアントのサポート
 
 MQTT v5.0 における変更のまとめについては [Appendix C](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#AppendixC) を参照してください。
+
+
+## 2 MQTT Control Packet format
+### 2.1 MQTT Control Packet の構造
+MQTT プロトコルは一連の MQTT Control Packets を定義された方法で交換し合うことによって動作します。このセクションはこれらのパケットのフォーマットを説明します。
+
+1 つの MQTT Control Packet は 3 つ以上のパートで構成され、常に以下に示すような順番の並びとなります。
+
+Figure 2‑1 Structure of an MQTT Control Packet
+<table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" width="643" style="width:6.7in;border-collapse:collapse;border:none">
+ <tbody><tr>
+  <td width="643" valign="top" style="width:6.7in;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">固定ヘッダ、すべての MQTT Control Packets に存在する</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="643" valign="top" style="width:6.7in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">可変ヘッダー、いくつかの MQTT Control Packets に存在する</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="643" valign="top" style="width:6.7in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">ペイロード、いくつかの MQTT Control Packets に存在する</p>
+  </td>
+ </tr>
+</tbody></table>
+
+#### 2.1.1 Fixed Header
+それぞれの MQTT Control Packet は以下に示すような 1 つの固定ヘッダーを含みます。
+
+Figure 2‑2 Fixed Header format
+<table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:none">
+ <tbody><tr>
+  <td width="106" valign="top" style="width:79.8pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Bit</b></p>
+  </td>
+  <td width="69" valign="top" style="width:51.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>7</b></p>
+  </td>
+  <td width="60" valign="top" style="width:45.0pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>6</b></p>
+  </td>
+  <td width="60" valign="top" style="width:45.0pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>5</b></p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>4</b></p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>3</b></p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>2</b></p>
+  </td>
+  <td width="60" valign="top" style="width:45.0pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>1</b></p>
+  </td>
+  <td width="67" valign="top" style="width:.7in;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>0</b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="106" valign="top" style="width:79.8pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">byte 1</p>
+  </td>
+  <td width="261" colspan="4" valign="top" style="width:195.6pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">MQTT Control Packet
+  type</p>
+  </td>
+  <td width="271" colspan="4" valign="top" style="width:203.4pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Flags specific to
+  each MQTT Control Packet type</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="106" valign="top" style="width:79.8pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">byte 2…</p>
+  </td>
+  <td width="532" colspan="8" valign="top" style="width:399.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Remaining Length</p>
+  </td>
+ </tr>
+</tbody></table>
+
+#### 2.1.2 MQTT Control Packet type
+**Position:** byte 1, bit 7-4   
+4 bit の符号なし値として表され、以下のようになります。
+
+Table 2‑1 MQTT Control Packet types
+<table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" width="667" style="width:6.95in;border-collapse:collapse;border:none">
+ <tbody><tr>
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Name</b></p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Value</b></p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Direction of
+  flow</b></p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Description</b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Reserved</p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Forbidden</p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Reserved</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNECT</p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Client to Server</p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Connection request</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK</p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">2</p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Server to Client</p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Connect acknowledgment</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBLISH</p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">3</p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Client to Server or</p>
+  <p class="MsoNormal" align="center" style="text-align:center">Server to Client</p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Publish message</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBACK</p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">4</p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Client to Server or</p>
+  <p class="MsoNormal" align="center" style="text-align:center">Server to Client</p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Publish acknowledgment (QoS 1)</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBREC</p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">5</p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Client to Server or</p>
+  <p class="MsoNormal" align="center" style="text-align:center">Server to Client</p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Publish received (QoS 2 delivery part 1)</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBREL</p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">6</p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Client to Server or</p>
+  <p class="MsoNormal" align="center" style="text-align:center">Server to Client</p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Publish release (QoS 2 delivery part 2)</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBCOMP</p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">7</p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Client to Server or</p>
+  <p class="MsoNormal" align="center" style="text-align:center">Server to Client</p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Publish complete (QoS 2 delivery part 3)</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">SUBSCRIBE</p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">8</p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Client to Server</p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Subscribe request</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">SUBACK</p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">9</p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Server to Client</p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Subscribe acknowledgment</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">UNSUBSCRIBE</p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">10</p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Client to Server</p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Unsubscribe request</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">UNSUBACK</p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">11</p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Server to Client</p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Unsubscribe acknowledgment</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PINGREQ</p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">12</p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Client to Server</p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PING request</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PINGRESP</p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">13</p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Server to Client</p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PING response</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">DISCONNECT</p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">14</p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Client to Server or</p>
+  <p class="MsoNormal" align="center" style="text-align:center">Server to Client</p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Disconnect notification</p>
+  </td>
+ </tr>
+ <tr style="height:3.0pt">
+  <td width="111" valign="top" style="width:83.05pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:3.0pt">
+  <p class="MsoNormal">AUTH</p>
+  </td>
+  <td width="70" valign="top" style="width:52.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:3.0pt">
+  <p class="MsoNormal" align="center" style="text-align:center">15</p>
+  </td>
+  <td width="132" valign="top" style="width:99.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:3.0pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Client to Server or
+  Server to Client</p>
+  </td>
+  <td width="354" valign="top" style="width:265.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:3.0pt">
+  <p class="MsoNormal">Authentication exchange</p>
+  </td>
+ </tr>
+</tbody></table>
