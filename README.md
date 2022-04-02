@@ -2007,9 +2007,6 @@ Remaining Length は　Variable Byte Integer であり、Variable Header や Pay
 Packet Identifier が必要な MQTT Control Packet は以下のとおりです。
 
 Table 2‑3 MQTT Control Packets that contain a Packet Identifier
-
-
-※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
 <table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" style="margin-left:.25in;border-collapse:collapse;border:none">
  <tbody><tr>
   <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
@@ -2187,3 +2184,32 @@ Table 2‑3 MQTT Control Packets that contain a Packet Identifier
   </td>
  </tr>
 </tbody></table>
+
+※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
+
+QoS が 0 の場合、PUBLISH パケットは Packet Identifier を含んではなりません (MUST NOT) [MQTT-2.2.1-2]。
+
+Client が新たな SUBSCRIBE、UNSUBSCRIBE、PUBLISH (QoS > 0) MQTT Control Packet を送信する時は、その時点で使用されていない 0 以外の Packet Identifier を設定しなくてはなりません (MUST) [MQTT-2.2.1-3]。
+
+Server が新たな PUBLISH (QoS > 0) MQTT Control Packet を送信する時は、その時点で使用されていない 0 以外の Packet Identifier を設定しなくてはなりません (MUST) [MQTT-2.2.1-4]。
+
+Packet Identifier は送信側が対応する確認応答パケット (以降で定義します) を処理した後に再利用可能となります。QoS 1 の PUBLISH には PUBACK が対応します。QoS 2 の PUBLISH には 128 以上の Reason Code を伴う PUBCOMP か PUBREC が対応します。SUBSCRIBE と UNSUBSCRIBE にはそれぞれ SUBACK と UNSUBACK が対応します。
+
+PUBLISH、SUBSCRIBE、UNSUBSCRIBE パケットに伴って使用される Packet Identifier は、1 つのセッション内のクライアントとサーバーに対して個別に単一の統一された識別子のセットを形成します。1 つの Packet Identifier は 1 度に複数のコマンドで使用することはできません。
+
+PUBACK、PUBREC、PUBREL、PUBCOMP パケットは、送信元である PUBLISH パケットと同じ Packet Identifier を含まなくてはなりません (MUST) [MQTT-2.2.1-5]。SUBACK と UNSUBACK は対応する SUBSCRIBE と UNSUBSCRIBE パケットにて使用された Packet Identifier を含まなくてはなりません (MUST) [MQTT-2.2.1-6]。
+
+Client と Server は それぞれに依存しない Packet Identifiers を設定します。その結果、Client-Server ペアは同じ Packet Identifier を用いて同時にメッセージを交換することができます。
+
+**非規範的なコメント**   
+Client は Packet Identifire 0x1234 の PUBLISH パケットを送信し、対応する PUBACK を受け取る前に、Packet Identifire 0x1234 の PUBLISH パケットを Server から受け取ることが可能です。
+
+Client ------------------------------------------------------------------------------------------------------------- Server
+
+PUBLISH Packet Identifier=0x1234 ‒→
+
+                                                      ←‒ PUBLISH Packet Identifier=0x1234
+
+PUBACK Packet Identifier=0x1234 ‒→
+
+                                                     ←‒ PUBACK Packet Identifier=0x1234
