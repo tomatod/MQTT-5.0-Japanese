@@ -1492,4 +1492,698 @@ Table 2‑1 MQTT Control Packet types
 
 ※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
 
-2.1.3 Flags
+#### 2.1.3 Flags
+固定ヘッダー内のバイトの残りのビット [3-0] は、以下に示すような、それぞれの MQTT Control Packet タイプに対して固有のフラグを含みます。フラグビットが "Reserved" とマークされた場所は、将来のために予約されており、リストされた値に設定する必要があります (MUST) [MQTT-2.1.3-1]。もし不適切なフラグを受け取った場合、それは不正なパケットとなります。エラーハンドリングについての詳細は [section 4.13](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#S4_13_Errors) を参照してください。
+
+Table 2‑2 Flag Bits
+<table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" width="487" style="width:365.4pt;margin-left:.25in;border-collapse:collapse;border:none">
+ <tbody><tr>
+  <td width="121" valign="top" style="width:90.9pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>MQTT Control
+  Packet</b></p>
+  </td>
+  <td width="150" valign="top" style="width:112.5pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Fixed Header
+  flags</b></p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Bit 3</b></p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Bit 2</b></p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Bit 1</b></p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Bit 0</b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="121" valign="top" style="width:90.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNECT</p>
+  </td>
+  <td width="150" valign="top" style="width:112.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Reserved</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="121" valign="top" style="width:90.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK</p>
+  </td>
+  <td width="150" valign="top" style="width:112.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Reserved</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="121" valign="top" style="width:90.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBLISH</p>
+  </td>
+  <td width="150" valign="top" style="width:112.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Used in MQTT v5.0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">DUP</p>
+  </td>
+  <td width="96" colspan="2" valign="top" style="width:1.0in;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">QoS</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">RETAIN</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="121" valign="top" style="width:90.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBACK</p>
+  </td>
+  <td width="150" valign="top" style="width:112.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Reserved</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="121" valign="top" style="width:90.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBREC</p>
+  </td>
+  <td width="150" valign="top" style="width:112.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Reserved</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="121" valign="top" style="width:90.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBREL</p>
+  </td>
+  <td width="150" valign="top" style="width:112.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Reserved</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" style="width:.5in;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">1</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="121" valign="top" style="width:90.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBCOMP</p>
+  </td>
+  <td width="150" valign="top" style="width:112.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Reserved</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="121" valign="top" style="width:90.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">SUBSCRIBE</p>
+  </td>
+  <td width="150" valign="top" style="width:112.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Reserved</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">1</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="121" valign="top" style="width:90.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">SUBACK</p>
+  </td>
+  <td width="150" valign="top" style="width:112.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Reserved</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="121" valign="top" style="width:90.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">UNSUBSCRIBE</p>
+  </td>
+  <td width="150" valign="top" style="width:112.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Reserved</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">1</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="121" valign="top" style="width:90.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">UNSUBACK</p>
+  </td>
+  <td width="150" valign="top" style="width:112.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Reserved</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="121" valign="top" style="width:90.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PINGREQ</p>
+  </td>
+  <td width="150" valign="top" style="width:112.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Reserved</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="121" valign="top" style="width:90.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PINGRESP</p>
+  </td>
+  <td width="150" valign="top" style="width:112.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Reserved</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="121" valign="top" style="width:90.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">DISCONNECT</p>
+  </td>
+  <td width="150" valign="top" style="width:112.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Reserved</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="121" valign="top" style="width:90.9pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">AUTH</p>
+  </td>
+  <td width="150" valign="top" style="width:112.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Reserved </p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="48" valign="top" style="width:.5in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+ </tr>
+</tbody></table>
+
+※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
+
+DUP = PUBLISH パケットの重複配信   
+QoS = PUBLISH のサービスクオリティ   
+RETAIN = メッセージフラグを保持した PUBLISH   
+PUBLISH パケットにおける DUP、QoS、および RETAIN フラグの説明については、[section 3.3.1](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_CONNECT_Fixed_Header) を参照してください。
+
+#### 2.1.4 Remaining Length
+Position: 2 つ目のバイトから開始
+
+Remaining Length は　Variable Byte Integer であり、Variable Header や Payload を含む、Control Packet 内の残りのバイト数を表します。Remaining Length は Remaining Length をエンコードするために使用されるバイトを含みません。パケットサイズは、MQTT Control Packet の合計バイト数であり、すなわち、Fixed Header の長さに Remaining Length を足したものです。
+
+### 2.2 Variable Header
+いくつかのタイプの MQTT Control Packet は Varriable Header コンポーネントを含みます。それは Fixed Header と Payload の間にあります。Variable Header の内容はパケットタイプによって異なります。Variable Header の Packet Identifier フィールドはいくつかのパケットタイプに共通です。
+
+#### 2.2.1 Packet Identifier
+多くの MQTT Control Packet タイプの Variable Header は Two Byte Integer Packet Identifier フィールドを含みます。これらの MQTT Control Packets は PUBLISH (QoS > 0)、PUBACK、PUBREC、PUBREL、PUBCOMP、SUBSCRIBE、SUBACK、UNSUBSCRIBE、UNSUBACK です。
+
+Packet Identifier が必要な MQTT Control Packet は以下のとおりです。
+
+Table 2‑3 MQTT Control Packets that contain a Packet Identifier
+
+
+※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
+<table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" style="margin-left:.25in;border-collapse:collapse;border:none">
+ <tbody><tr>
+  <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-GB">MQTT Control Packet</span></b></p>
+  </td>
+  <td width="171" valign="top" style="width:128.15pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-GB">Packet Identifier field</span></b></p>
+  </td>
+ </tr>
+ <tr style="height:17.05pt">
+  <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:17.05pt">
+  <p class="MsoNormal"><span lang="EN-GB">CONNECT</span></p>
+  </td>
+  <td width="171" valign="top" style="width:128.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:17.05pt">
+  <p class="MsoNormal">NO</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">CONNACK</span></p>
+  </td>
+  <td width="171" valign="top" style="width:128.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">NO</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">PUBLISH</span></p>
+  </td>
+  <td width="171" valign="top" style="width:128.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">YES (If QoS &gt; 0)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">PUBACK</span></p>
+  </td>
+  <td width="171" valign="top" style="width:128.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">YES</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">PUBREC</span></p>
+  </td>
+  <td width="171" valign="top" style="width:128.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">YES</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">PUBREL</span></p>
+  </td>
+  <td width="171" valign="top" style="width:128.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">YES</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">PUBCOMP</span></p>
+  </td>
+  <td width="171" valign="top" style="width:128.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">YES</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">SUBSCRIBE</span></p>
+  </td>
+  <td width="171" valign="top" style="width:128.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">YES</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">SUBACK</span></p>
+  </td>
+  <td width="171" valign="top" style="width:128.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">YES</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">UNSUBSCRIBE</span></p>
+  </td>
+  <td width="171" valign="top" style="width:128.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">YES</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">UNSUBACK</span></p>
+  </td>
+  <td width="171" valign="top" style="width:128.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">YES</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">PINGREQ</span></p>
+  </td>
+  <td width="171" valign="top" style="width:128.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">NO</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">PINGRESP</span></p>
+  </td>
+  <td width="171" valign="top" style="width:128.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">NO</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">DISCONNECT</span></p>
+  </td>
+  <td width="171" valign="top" style="width:128.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">NO</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="129" valign="top" style="width:96.95pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">AUTH</span></p>
+  </td>
+  <td width="171" valign="top" style="width:128.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">NO</span></p>
+  </td>
+ </tr>
+</tbody></table>
