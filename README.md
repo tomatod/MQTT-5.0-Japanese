@@ -2204,7 +2204,8 @@ Client と Server は それぞれに依存しない Packet Identifiers を設�
 **非規範的なコメント**   
 Client は Packet Identifire 0x1234 の PUBLISH パケットを送信し、対応する PUBACK を受け取る前に、Packet Identifire 0x1234 の PUBLISH パケットを Server から受け取ることが可能です。
 
-Client ------------------------------------------------------------------------------------------------------------- Server
+```
+Client                                                 Server
 
 PUBLISH Packet Identifier=0x1234 ‒→
 
@@ -2213,3 +2214,4 @@ PUBLISH Packet Identifier=0x1234 ‒→
 PUBACK Packet Identifier=0x1234 ‒→
 
                                                      ←‒ PUBACK Packet Identifier=0x1234
+```
