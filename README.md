@@ -2215,3 +2215,14 @@ PUBACK Packet Identifier=0x1234 ‒→
 
                                                      ←‒ PUBACK Packet Identifier=0x1234
 ```
+
+#### 2.2.2 Properties
+CONNECT、CONNACK、PUBLISH、PUBACK、PUBREC、PUBREL、PUBCOMP、SUBSCRIBE、SUBACK、UNSUBSCRIBE、UNSUBACK、DISCONNECT、および AUTH パケットの Variable Header ーの最後のフィールドは、Properties のセットです。CONNECT パケットには、Payload のある Will Properties フィールドにオプションの Properties セットもあります。
+
+Properties のセットは、Property Length とそれに続く Properties で構成されます。
+
+##### 2.2.2.1 Property Length
+Property Length は、Variable Byte Integer としてエンコードされます。Property Length には、それ自体のエンコードに使用されるバイトは含まれませんが、Properties の長さは含まれます。
+
+##### 2.2.2.2 Property
+Property は、その使用法とデータ型を定義する Identifier と、それに続く値で構成されます。Identifier は Varialbe Byte Integer としてエンコードされます。パケットタイプにとって適切でない Identifier を含むか、指定されたデータ型ではない値を含む Control Packet は、Malformed Packet。もし受け取った場合、[section 4.13](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#S4_13_Errors) でエラーハンドリングについて説明しているような Reason Code 0x81 (Malformed Packet) を含む CONNACK か DISCONNECT パケットを使用してください。Identifiers が異なる Properties の順序には特に意味がありません。
