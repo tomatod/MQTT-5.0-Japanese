@@ -2222,7 +2222,1920 @@ CONNECT、CONNACK、PUBLISH、PUBACK、PUBREC、PUBREL、PUBCOMP、SUBSCRIBE、S
 Properties のセットは、Property Length とそれに続く Properties で構成されます。
 
 ##### 2.2.2.1 Property Length
-Property Length は、Variable Byte Integer としてエンコードされます。Property Length には、それ自体のエンコードに使用されるバイトは含まれませんが、Properties の長さは含まれます。
+Property Length は、Variable Byte Integer としてエンコードされます。Property Length には、それ自体のエンコードに使用されるバイトは含まれませんが、Properties の長さが含まれます。
 
 ##### 2.2.2.2 Property
 Property は、その使用法とデータ型を定義する Identifier と、それに続く値で構成されます。Identifier は Varialbe Byte Integer としてエンコードされます。パケットタイプにとって適切でない Identifier を含むか、指定されたデータ型ではない値を含む Control Packet は、Malformed Packet となります。もし受け取った場合、[section 4.13](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#S4_13_Errors) でエラーハンドリングについて説明しているような Reason Code 0x81 (Malformed Packet) を含む CONNACK か DISCONNECT パケットを使用してください。Identifiers が異なる Properties の順序には特に意味がありません。
+
+Table 2‑4 - Properties
+<table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" width="685" style="width:513.9pt;border-collapse:collapse;border:none">
+ <tbody><tr style="page-break-inside:avoid">
+  <td width="95" colspan="2" valign="top" style="width:71.55pt;border:solid windowtext 1.0pt;
+  background:white;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><b>Identifier</b></p>
+  </td>
+  <td width="188" rowspan="2" valign="top" style="width:141.3pt;border:solid windowtext 1.0pt;
+  border-left:none;background:white;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><b>Name (usage)</b></p>
+  </td>
+  <td width="150" rowspan="2" valign="top" style="width:112.6pt;border:solid windowtext 1.0pt;
+  border-left:none;background:white;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><b>Type</b></p>
+  </td>
+  <td width="251" rowspan="2" valign="top" style="width:188.45pt;border:solid windowtext 1.0pt;
+  border-left:none;background:white;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><b>Packet / Will Properties</b></p>
+  <p class="MsoNormal"><b>&nbsp;</b></p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;background:white;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><b>Dec</b></p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:white;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><b>Hex</b></p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">1</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x01</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Payload Format Indicator</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Byte</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBLISH, Will Properties</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">2</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x02</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Message Expiry Interval</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Four Byte Integer</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBLISH, Will Properties</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">3</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x03</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Content Type</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">UTF-8 Encoded String</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBLISH, Will Properties</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">8</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x08</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Response Topic</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">UTF-8 Encoded String</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBLISH, Will Properties</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">9</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x09</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Correlation Data</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Binary Data</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBLISH, Will Properties</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">11</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x0B</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Subscription Identifier</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Variable Byte Integer</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBLISH, SUBSCRIBE</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">17</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x11</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Session Expiry Interval</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Four Byte Integer</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNECT, CONNACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">18</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x12</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">Assigned Client Identifier</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">UTF-8 Encoded String</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">19</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x13</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">Server Keep Alive</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Two Byte Integer</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">21</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x15</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">Authentication Method</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">UTF-8 Encoded String</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNECT, CONNACK, AUTH</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">22</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x16</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">Authentication Data</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Binary Data</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNECT, CONNACK, AUTH</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">23</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x17</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">Request Problem Information</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Byte</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">24</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x18</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">Will Delay Interval</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Four Byte Integer</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Will Properties</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">25</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x19</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Request Response Information</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Byte</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">26</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x1A</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">Response Information</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">UTF-8 Encoded String</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">28</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x1C</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">Server Reference </p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">UTF-8 Encoded String</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">31</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x1F</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" style="text-align:justify">Reason String</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">UTF-8 Encoded String</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, PUBACK, PUBREC, PUBREL, PUBCOMP, SUBACK,
+  UNSUBACK, DISCONNECT, AUTH</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">33</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x21</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Receive Maximum</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Two Byte Integer</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNECT, CONNACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">34</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x22</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Topic Alias Maximum</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Two Byte Integer</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNECT, CONNACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">35</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x23</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Topic Alias</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Two Byte Integer</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBLISH</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">36</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x24</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Maximum QoS</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Byte</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">37</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x25</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Retain Available</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Byte</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">38</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x26</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">User Property</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">UTF-8 String Pair</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNECT, CONNACK, PUBLISH, Will Properties, PUBACK,
+  PUBREC, PUBREL, PUBCOMP, SUBSCRIBE, SUBACK, UNSUBSCRIBE, UNSUBACK,
+  DISCONNECT, AUTH</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">39</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x27</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Maximum Packet Size</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Four Byte Integer</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNECT, CONNACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">40</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x28</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Wildcard Subscription Available</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Byte</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">41</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x29</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Subscription Identifier Available</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Byte</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="45" valign="top" style="width:33.5pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">42</p>
+  </td>
+  <td width="51" valign="top" style="width:38.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x2A</p>
+  </td>
+  <td width="188" valign="top" style="width:141.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Shared Subscription Available</p>
+  </td>
+  <td width="150" valign="top" style="width:112.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Byte</p>
+  </td>
+  <td width="251" valign="top" style="width:188.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK</p>
+  </td>
+ </tr>
+</tbody></table>
+
+※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
+
+**非規範的なコメント**
+Property Identifier は Variable Byte Integer として定義されていますが、仕様の本バージョンにおいてはすべての Property Identifier は 1 バイト長です。
+
+### 2.3 Payload
+いくつかの MQTT Control Packets はパケットの最後の部分に Payload を持ちます。PUBLISH パケットでは、これはアプリケーションメッセージです。
+
+Table 2‑5 - MQTT Control Packets that contain a Payload
+<table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" style="margin-left:.25in;border-collapse:collapse;border:none">
+ <tbody><tr>
+  <td width="124" valign="top" style="width:93.25pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-GB">MQTT Control Packet</span></b></p>
+  </td>
+  <td width="105" valign="top" style="width:78.65pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-GB">Payload</span></b></p>
+  </td>
+ </tr>
+ <tr style="height:17.05pt">
+  <td width="124" valign="top" style="width:93.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:17.05pt">
+  <p class="MsoNormal"><span lang="EN-GB">CONNECT</span></p>
+  </td>
+  <td width="105" valign="top" style="width:78.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:17.05pt">
+  <p class="MsoNormal">Required</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="124" valign="top" style="width:93.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">CONNACK</span></p>
+  </td>
+  <td width="105" valign="top" style="width:78.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">None</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="124" valign="top" style="width:93.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">PUBLISH</span></p>
+  </td>
+  <td width="105" valign="top" style="width:78.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">Optional</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="124" valign="top" style="width:93.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">PUBACK</span></p>
+  </td>
+  <td width="105" valign="top" style="width:78.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">None</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="124" valign="top" style="width:93.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">PUBREC</span></p>
+  </td>
+  <td width="105" valign="top" style="width:78.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">None</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="124" valign="top" style="width:93.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">PUBREL</span></p>
+  </td>
+  <td width="105" valign="top" style="width:78.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">None</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="124" valign="top" style="width:93.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">PUBCOMP</span></p>
+  </td>
+  <td width="105" valign="top" style="width:78.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">None</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="124" valign="top" style="width:93.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">SUBSCRIBE</span></p>
+  </td>
+  <td width="105" valign="top" style="width:78.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">Required</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="124" valign="top" style="width:93.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">SUBACK</span></p>
+  </td>
+  <td width="105" valign="top" style="width:78.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">Required</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="124" valign="top" style="width:93.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">UNSUBSCRIBE</span></p>
+  </td>
+  <td width="105" valign="top" style="width:78.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">Required</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="124" valign="top" style="width:93.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">UNSUBACK</span></p>
+  </td>
+  <td width="105" valign="top" style="width:78.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">Required</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="124" valign="top" style="width:93.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">PINGREQ</span></p>
+  </td>
+  <td width="105" valign="top" style="width:78.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">None</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="124" valign="top" style="width:93.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">PINGRESP</span></p>
+  </td>
+  <td width="105" valign="top" style="width:78.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">None</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="124" valign="top" style="width:93.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">DISCONNECT</span></p>
+  </td>
+  <td width="105" valign="top" style="width:78.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">None</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="124" valign="top" style="width:93.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">AUTH</span></p>
+  </td>
+  <td width="105" valign="top" style="width:78.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span lang="EN-GB">None</span></p>
+  </td>
+ </tr>
+</tbody></table>
+
+※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
+
+### 2.4 Reason Code
+Reason Code は 1 byte の符号なし値で、オペレーションの結果を示します。Reason Code 0x80 未満はオペレーションの成功を示します。通常の成功 Reason Code は 0 です。Reason Code 0x80 かそれ以上は失敗を示します。
+
+CONNACK、PUBACK、PUBREC、PUBREL、PUBCOMP、DISCONNECT、および AUTH Control Packets には、Variable Header の一部として 1 つの Reason Code があります。 SUBACK と UNSUBACK パケットには、Payload 内に 1 つ以上の Reason Code のリストが含まれています。
+
+Table 2‑6 - Reason Codes
+<table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" width="673" style="width:504.9pt;border-collapse:collapse;border:none">
+ <tbody><tr style="page-break-inside:avoid">
+  <td width="113" colspan="2" valign="top" style="width:84.5pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Reason Code</b></p>
+  </td>
+  <td width="211" rowspan="2" valign="top" style="width:158.5pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Name</b></p>
+  </td>
+  <td width="349" rowspan="2" valign="top" style="width:261.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Packets</b></p>
+  <p class="MsoNormal" align="center" style="text-align:center"><b>&nbsp;</b></p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Decimal</b></p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Hex</b></p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x00</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Success</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, PUBACK, PUBREC, PUBREL, PUBCOMP, UNSUBACK, AUTH</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x00</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Normal disconnection</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x00</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Granted QoS 0</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">SUBACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">1</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x01</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Granted QoS 1</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">SUBACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">2</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x02</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Granted QoS 2</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">SUBACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">4</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x04</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Disconnect with Will Message</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">16</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x10</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">No matching subscribers</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBACK, PUBREC</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">17</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x11</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">No subscription existed</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">UNSUBACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">24</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x18</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Continue authentication</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">AUTH</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">25</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x19</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Re-authenticate</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">AUTH</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">128</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x80</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Unspecified error</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, PUBACK, PUBREC, SUBACK, UNSUBACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">129</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x81</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Malformed Packet</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">130</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x82</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Protocol Error</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">131</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x83</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Implementation specific error</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, PUBACK, PUBREC, SUBACK, UNSUBACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">132</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x84</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Unsupported Protocol Version</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">133</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x85</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Client Identifier not valid</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">134</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x86</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Bad User Name or Password</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">135</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x87</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Not authorized</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, PUBACK, PUBREC, SUBACK, UNSUBACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">136</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x88</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Server unavailable</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">137</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x89</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Server busy</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">138</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x8A</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Banned</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">139</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x8B</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Server shutting down</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">140</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x8C</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Bad authentication method</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">141</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x8D</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Keep Alive timeout</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">142</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x8E</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Session taken over</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">143</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x8F</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Topic Filter invalid</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">SUBACK, UNSUBACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">144</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x90</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Topic Name invalid</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, PUBACK, PUBREC, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">145</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x91</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Packet Identifier in use</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBACK, PUBREC, SUBACK, UNSUBACK</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">146</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x92</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Packet Identifier not found</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">PUBREL, PUBCOMP</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">147</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x93</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Receive Maximum exceeded</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">148</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x94</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Topic Alias invalid</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">149</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x95</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Packet too large</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">150</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x96</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Message rate too high</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">151</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x97</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Quota exceeded</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, PUBACK, PUBREC, SUBACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">152</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x98</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Administrative action</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">153</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x99</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Payload format invalid</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, PUBACK, PUBREC, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">154</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x9A</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Retain not supported</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">155</p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x9B</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">QoS not supported</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span style="font-size:10.5pt;color:#333333">156</span></p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x9C</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Use another server</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span style="font-size:10.5pt;color:#333333">157</span></p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x9D</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Server moved</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span style="font-size:10.5pt;color:#333333">158</span></p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x9E</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Shared Subscriptions not supported</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">SUBACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span style="font-size:10.5pt;color:#333333">159</span></p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0x9F</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Connection rate exceeded</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">CONNACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span style="font-size:10.5pt;color:#333333">160</span></p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0xA0</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Maximum connect time</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span style="font-size:10.5pt;color:#333333">161</span></p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0xA1</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Subscription Identifiers not supported</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">SUBACK, DISCONNECT</p>
+  </td>
+ </tr>
+ <tr style="page-break-inside:avoid">
+  <td width="66" valign="top" style="width:49.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal"><span style="font-size:10.5pt;color:#333333">162</span></p>
+  </td>
+  <td width="47" valign="top" style="width:35.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">0xA2</p>
+  </td>
+  <td width="211" valign="top" style="width:158.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Wildcard Subscriptions not supported</p>
+  </td>
+  <td width="349" valign="top" style="width:261.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">SUBACK, DISCONNECT</p>
+  </td>
+ </tr>
+</tbody></table>
+
+※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
+
+**非規範的なコメント**
+Reason Code 0x91 (Packet identifier in use) の場合、これに対する応答は、状態を修正しようとするか、1 をセットする Clean Start を使って接続の Session 状態をリセットするか、Client または Server の実装に欠陥があるか判断することです。
