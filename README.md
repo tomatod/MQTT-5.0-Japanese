@@ -4137,5 +4137,5 @@ Table 2‑6 - Reason Codes
 
 ※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
 
-**非規範的なコメント**
+**非規範的なコメント**   
 Reason Code 0x91 (Packet identifier in use) の場合、これに対する応答は、状態を修正しようとするか、1 をセットする Clean Start を使って接続の Session 状態をリセットするか、Client または Server の実装に欠陥があるか判断することです。
