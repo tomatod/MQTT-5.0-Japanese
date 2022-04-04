@@ -2968,7 +2968,7 @@ Table 2‑4 - Properties
 
 ※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
 
-**非規範的なコメント**
+**非規範的なコメント**   
 Property Identifier は Variable Byte Integer として定義されていますが、仕様の本バージョンにおいてはすべての Property Identifier は 1 バイト長です。
 
 ### 2.3 Payload
