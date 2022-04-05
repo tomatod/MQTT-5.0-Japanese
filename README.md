@@ -4139,3 +4139,11 @@ Table 2‑6 - Reason Codes
 
 **非規範的なコメント**   
 Reason Code 0x91 (Packet identifier in use) の場合、これに対する応答は、状態を修正しようとするか、1 をセットする Clean Start を使って接続の Session 状態をリセットするか、Client または Server の実装に欠陥があるか判断することです。
+
+## 3 MQTT Control Packets
+### 3.1 CONNECT - Connection Request
+Client から Server への Network Connection が確立されたあと、Client から Server へ送られる最初のパケットは CONNECT パケットでなくてはなりません (MUST) [MQTT-3.1.0-1]。
+
+Client は 1 つの Network Connection にわたって、CONNECT パケットを一度のみ送信することができます。Server は 2 回目い Client から送信された CONNECT パケットを Protocol Error として扱い、Network Connection を閉じなくてはなりません (MUST) [MQTT-3.1.0-2]。エラーハンドリングについては [section 4.13](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#S4_13_Errors) を参照してください。
+
+Payload は 1 つまたは複数のエンコードされたフィールドを含みます。それらは Client に対してユニークな Client 識別子、Will Topic、Will Payload、User Name そして Password を指定します。Client 識別子を除くすべてを省略でき、それらの存在は Variable Header のフラグに基づいて決定されます。
