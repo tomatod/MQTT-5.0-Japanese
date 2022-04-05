@@ -4147,3 +4147,600 @@ Client から Server への Network Connection が確立されたあと、Client
 Client は 1 つの Network Connection にわたって、CONNECT パケットを一度のみ送信することができます。Server は 2 回目い Client から送信された CONNECT パケットを Protocol Error として扱い、Network Connection を閉じなくてはなりません (MUST) [MQTT-3.1.0-2]。エラーハンドリングについては [section 4.13](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#S4_13_Errors) を参照してください。
 
 Payload は 1 つまたは複数のエンコードされたフィールドを含みます。それらは Client に対してユニークな Client 識別子、Will Topic、Will Payload、User Name そして Password を指定します。Client 識別子を除くすべてを省略でき、それらの存在は Variable Header のフラグに基づいて決定されます。
+
+#### 3.1.1 CONNCET Fixed Header
+Figure 3‑1 - CONNECT packet Fixed Header
+<table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:none">
+ <tbody><tr>
+  <td width="106" valign="top" style="width:79.8pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Bit</b></p>
+  </td>
+  <td width="53" valign="top" style="width:39.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>7</b></p>
+  </td>
+  <td width="64" valign="top" style="width:47.7pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>6</b></p>
+  </td>
+  <td width="60" valign="top" style="width:45.0pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>5</b></p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>4</b></p>
+  </td>
+  <td width="70" valign="top" style="width:52.8pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>3</b></p>
+  </td>
+  <td width="62" valign="top" style="width:46.2pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>2</b></p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>1</b></p>
+  </td>
+  <td width="79" valign="top" style="width:59.4pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>0</b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="106" valign="top" style="width:79.8pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">byte 1</p>
+  </td>
+  <td width="249" colspan="4" valign="top" style="width:186.6pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">MQTT Control Packet
+  type (1)</p>
+  </td>
+  <td width="283" colspan="4" valign="top" style="width:2.95in;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Reserved</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="106" valign="top" style="width:79.8pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">&nbsp;</p>
+  </td>
+  <td width="53" valign="top" style="width:39.9pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="64" valign="top" style="width:47.7pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="60" valign="top" style="width:45.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+  <td width="70" valign="top" style="width:52.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="62" valign="top" style="width:46.2pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="72" valign="top" style="width:.75in;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="79" valign="top" style="width:59.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="106" valign="top" style="width:79.8pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">byte 2…</p>
+  </td>
+  <td width="532" colspan="8" valign="top" style="width:399.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Remaining Length</p>
+  </td>
+ </tr>
+</tbody></table>
+
+※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
+
+**Remaining Length フィールド**   
+これは Variable Header の長さと Payload の長さを足したものです。Variable Byte Integer でエンコードされます。
+
+#### 3.1.2 CONNECT Variable Header
+CONNECT Packet の Variable Header は次のフィールドを順番に持ちます。Protocol Name、Protocol Level、Connect Flags、Keep Alive、Properties です。
+
+##### 3.1.2.1 Protocol Name
+Figure 3‑2 - Protocol Name bytes
+<table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" style="margin-left:-.05in;border-collapse:collapse;border:none">
+ <tbody><tr>
+  <td width="111" valign="top" style="width:83.4pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">&nbsp;</p>
+  </td>
+  <td width="248" valign="top" style="width:186.2pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Description</b></p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>7</b></p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>6</b></p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>5</b></p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>4</b></p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>3</b></p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>2</b></p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>1</b></p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>0</b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="643" colspan="10" valign="top" style="width:6.7in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Protocol Name</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">byte 1</p>
+  </td>
+  <td width="248" valign="top" style="width:186.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Length MSB (0)</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">byte 2</p>
+  </td>
+  <td width="248" valign="top" style="width:186.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Length LSB (4)</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">byte 3</p>
+  </td>
+  <td width="248" valign="top" style="width:186.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">‘M’</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">byte 4</p>
+  </td>
+  <td width="248" valign="top" style="width:186.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">‘Q’</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">byte 5</p>
+  </td>
+  <td width="248" valign="top" style="width:186.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">‘T’</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">byte 6</p>
+  </td>
+  <td width="248" valign="top" style="width:186.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">‘T’</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+ </tr>
+</tbody></table>
+
+※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
+
+Protocol Name は UTF-8 Encoded String であり、プロトコル名 "MQTT" を大文字で示します。プロトコル名は UTF-8 文字の "MQTT" でなくてはなりません (MUST)。もし Server が CONNECT を受け入れたくなく、MQTT Server であることを明らかにしたい場合は、Reason Code 0x84 (Unsupported Protocol Version) を持つ CONNACK パケットを送信する場合があり (MAY)、さらに Network Connection をクローズしなくてはなりません (MUST) [MQTT-3.1.2-1]。
+
+**非規範的なコメント**   
+ファイアウォールのようなパケットインスペクターは Protocol Name を MQTT トラフィックの識別に利用することができます。
+
+##### 3.1.2.2 Protocol Version
+Figure 3‑3 - Protocol Version byte
+<table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" style="margin-left:-.05in;border-collapse:collapse;border:none">
+ <tbody><tr>
+  <td width="111" valign="top" style="width:83.4pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">&nbsp;</p>
+  </td>
+  <td width="248" valign="top" style="width:186.2pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Description</b></p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>7</b></p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>6</b></p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>5</b></p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>4</b></p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>3</b></p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>2</b></p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>1</b></p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>0</b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="643" colspan="10" valign="top" style="width:6.7in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Protocol Level</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="111" valign="top" style="width:83.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">byte 7</p>
+  </td>
+  <td width="248" valign="top" style="width:186.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">Version(5)</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+  <td width="35" valign="top" style="width:26.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">1</p>
+  </td>
+ </tr>
+</tbody></table>
+
+※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
