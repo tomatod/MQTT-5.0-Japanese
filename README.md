@@ -4747,4 +4747,138 @@ Figure 3‑3 - Protocol Version byte
 
 Client に使用されるプロトコルのリビジョンレベルを示す 1 byte の符号なし値です。プロトコルのバージョン 5 の Protocol Version フィールドは 5 (0x05) です。
 
-MQTT プロトコルの様々なバージョンをサポートするサーバは、クライアントがどのバージョンの MQTT を使用しているか判断するために、Protocol Version を使用します。もし Protocol Version が 5 でなく、Server が CONNECT パケットを受け入れたくない場合、Server は CONNACK パケットを Reason Code 0x84 (Unsupported Protocol Version) で送信する場合があり (MAY)、Network Connection を閉じなくてはなりません (MUST) [MQTT-3.1.2-2]。
+MQTT プロトコルの様々なバージョンをサポートするサーバは、クライアントがどのバージョンの MQTT を使用しているか判断するために、Protocol Version を使用します。もし Protocol Version が 5 でなく、Server が CONNECT パケットを受け入れたくない場合、Server は CONNACK パケットを Reason Code 0x84 (Unsupported Protocol Version) で送信する場合があり (MAY)、Network Connection を閉じなくてはなりません (MUST) [MQTT-3.1.2-2]
+
+3.1.2.3 Connect Flags
+Connect Flags バイトは MQTT コネクションの振る舞いを指定するいくつかのパラメータを含みます。また、Payload のフィールドの有無も示します。
+
+Figure 3‑4 - Connect Flag bits
+<table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:none">
+ <tbody><tr>
+  <td width="65" valign="top" style="width:48.55pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>Bit</b></p>
+  </td>
+  <td width="85" valign="top" style="width:63.65pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>7</b></p>
+  </td>
+  <td width="84" valign="top" style="width:63.3pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>6</b></p>
+  </td>
+  <td width="85" valign="top" style="width:63.8pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>5</b></p>
+  </td>
+  <td width="47" valign="top" style="width:35.45pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>4</b></p>
+  </td>
+  <td width="47" valign="top" style="width:35.45pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>3</b></p>
+  </td>
+  <td width="76" valign="top" style="width:56.7pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>2</b></p>
+  </td>
+  <td width="78" valign="top" style="width:58.3pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>1</b></p>
+  </td>
+  <td width="71" valign="top" style="width:53.6pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b>0</b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="65" valign="top" style="width:48.55pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">&nbsp;</p>
+  </td>
+  <td width="85" valign="top" style="width:63.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">User Name Flag</p>
+  </td>
+  <td width="84" valign="top" style="width:63.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Password Flag</p>
+  </td>
+  <td width="85" valign="top" style="width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Will Retain</p>
+  </td>
+  <td width="95" colspan="2" valign="top" style="width:70.9pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Will QoS</p>
+  </td>
+  <td width="76" valign="top" style="width:56.7pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Will Flag</p>
+  </td>
+  <td width="78" valign="top" style="width:58.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Clean Start</p>
+  </td>
+  <td width="71" valign="top" style="width:53.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">Reserved</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="65" valign="top" style="width:48.55pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal">byte 8</p>
+  </td>
+  <td width="85" valign="top" style="width:63.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">X</p>
+  </td>
+  <td width="84" valign="top" style="width:63.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">X</p>
+  </td>
+  <td width="85" valign="top" style="width:63.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">X</p>
+  </td>
+  <td width="47" valign="top" style="width:35.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">X</p>
+  </td>
+  <td width="47" valign="top" style="width:35.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">X</p>
+  </td>
+  <td width="76" valign="top" style="width:56.7pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">X</p>
+  </td>
+  <td width="78" valign="top" style="width:58.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">X</p>
+  </td>
+  <td width="71" valign="top" style="width:53.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" style="text-align:center">0</p>
+  </td>
+ </tr>
+</tbody></table>
+
+Server は CONNECT パケット内のリザーブドフラグが 0 にセットされているか確認しなければなりません (MUST)。もしリザーブドフラグが 0 でない場合は Malformed Packet となります。エラーハンドリングについては [section 4.13](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#S4_13_Errors) を参照してください。 
