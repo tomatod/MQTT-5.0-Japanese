@@ -4882,3 +4882,12 @@ Figure 3‑4 - Connect Flag bits
 </tbody></table>
 
 Server は CONNECT パケット内のリザーブドフラグが 0 にセットされているか確認しなければなりません (MUST)。もしリザーブドフラグが 0 でない場合は Malformed Packet となります。エラーハンドリングについては [section 4.13](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#S4_13_Errors) を参照してください。 
+
+##### 3.1.2.4 Clean Start
+**Position:** Connect Flags バイトのビット 1
+
+このビットは Connection が新たな Session を開始するか既存の Session を継続するかを示します。Session State の定義については [section 4.1](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Session_State) を参照してください。
+
+Clean Start が 1 にセットされた CONNECT パケットを受け取った場合、Cient と Server は既存の Session を破棄して新しい Session を開始しなければなりません (MUST) [MQTT-3.1.2-4]。その結果、Clean Start に 1 がセットされた場合、CONNACK 内の Session Present フラグは常に 0 へセットされます。
+
+Clean Start が 0 にセットされた CONNECT パケットを受け取り、Client Identifier に紐づく Session が存在する場合には、Server は既存の Session の状態に基づいて Client とのコミュニケーションを継続しなくてはなりません (MUST) [MQTT-3.1.2-5]。Clean Start が 0 にセットされた CONNECT パケットを受け取って、Client Identifier に紐づく Session が存在しない場合には、Server は新しい Session を作成しなければなりません (MUST) [MQTT-3.1.2-6]。
