@@ -4744,3 +4744,7 @@ Figure 3‑3 - Protocol Version byte
 </tbody></table>
 
 ※ この表は[公式ページ](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)のものを引用しています。
+
+Client に使用されるプロトコルのリビジョンレベルを示す 1 byte の符号なし値です。プロトコルのバージョン 5 の Protocol Version フィールドは 5 (0x05) です。
+
+MQTT プロトコルの様々なバージョンをサポートするサーバは、クライアントがどのバージョンの MQTT を使用しているか判断するために、Protocol Version を使用します。もし Protocol Version が 5 でなく、Server が CONNECT パケットを受け入れたくない場合、Server は CONNACK パケットを Reason Code 0x84 (Unsupported Protocol Version) で送信する場合があり (MAY)、Network Connection を閉じなくてはなりません (MUST) [MQTT-3.1.2-2]。
