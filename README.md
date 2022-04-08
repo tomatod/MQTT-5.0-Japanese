@@ -4891,3 +4891,15 @@ Server は CONNECT パケット内のリザーブドフラグが 0 にセット�
 Clean Start が 1 にセットされた CONNECT パケットを受け取った場合、Cient と Server は既存の Session を破棄して新しい Session を開始しなければなりません (MUST) [MQTT-3.1.2-4]。その結果、Clean Start に 1 がセットされた場合、CONNACK 内の Session Present フラグは常に 0 へセットされます。
 
 Clean Start が 0 にセットされた CONNECT パケットを受け取り、Client Identifier に紐づく Session が存在する場合には、Server は既存の Session の状態に基づいて Client とのコミュニケーションを継続しなくてはなりません (MUST) [MQTT-3.1.2-5]。Clean Start が 0 にセットされた CONNECT パケットを受け取って、Client Identifier に紐づく Session が存在しない場合には、Server は新しい Session を作成しなければなりません (MUST) [MQTT-3.1.2-6]。
+
+##### 3.1.2.5 Will Flag
+**Position:** Connect Flags の bit 2。
+
+Will Flag が 1 にセットされた場合、Will Message を Server に保存し、Session と結び付けなくてはならない (MUST) ことを示します [MQTT-3.1.2-7]。Will Message は Will Properties、Will Topic、Will Payload フィールドを CONNECT Payload 内に含みます。Will Message は Network Connection がクローズされ、Will Delay Interval が経過するか Session が終了した後に Publish されなければなりません (MUST) が、Will Message が Reason Code 0x00 (Normal disconnection) を含む DISCONNECT パケットの受信時に Server によって削除されているか、Will Delay Interval が経過する前に その ClientID の新たな Network Connection がオープンされた場合は除きます [MQTT-3.1.2-8]。
+
+Will Message がパブリッシュされるシチュエーションは以下を含みますが、これらに限定されるものではありません。
+
+- I/O やネットワークのエラーが Server によって検出された。
+- Client が Keep Alive 時間内のコミュニケーションに失敗した。
+- Client が Reason Code 0x00 (Normal disconnection) を含む DISCONNECT パケットの送信なしに Network Connection をクローズした。
+- Server が Reason Code 0x00 (Normal disconnection) を含む DISCONNECT パケットの送信なしに Network Connection をクローズした。
