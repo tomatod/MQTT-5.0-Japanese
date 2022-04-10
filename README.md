@@ -4903,3 +4903,12 @@ Will Message がパブリッシュされるシチュエーションは以下を�
 - Client が Keep Alive 時間内のコミュニケーションに失敗した。
 - Client が Reason Code 0x00 (Normal disconnection) を含む DISCONNECT パケットの送信なしに Network Connection をクローズした。
 - Server が Reason Code 0x00 (Normal disconnection) を含む DISCONNECT パケットの送信なしに Network Connection をクローズした。
+
+Will Flag が 1 にセットされた場合、Will Topic と Will Payload フィールドが Payload に存在しなくてはなりません (MUST) [MQTT-3.1.2-9]。Will Message は、一度でもパブリッシュされるか、Server が Reason Code of 0x00 (Normal disconnection) を持つ DISCONNECT パケットを Client から受け取った場合、Server に保存された Session State から取り除かれなければなりません (MUST) [MQTT-3.1.2-10]。
+
+Server は Network Connection がクローズされて Will Delay Interval が過ぎたあとか、Session が終了したとき、すぐにパブリッシュされるべき (SHOULD) です。Server のシャットダウンまたは障害が発生した場合、Server の再起動まで、Will Message の公開を延期する場合があります。 この場合、サーバーで障害が発生してからWill Message が公開されるまでに遅延が発生する可能性があります。
+
+Will Delay Interval については [section 3.1.3.2](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Will_Delay_Interval_1) を参照してください。
+
+**非規範的なコメント**   
+Client は、Will Message が Session Expiry の発生を通知するように、Will Delay Interval を Session Expiry Interval よりも長く設定し、DISCONNECT を Reason Code 0x04 (Disconnect with Will Message) で送信するよう調整することができます。
